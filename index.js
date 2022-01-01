@@ -20,6 +20,18 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
+        const database = client.db("mobileZone-database");
+        const productCollection = database.collection("products");
+
+
+
+
+        //get products API
+        app.get("/products", async (req, res) => {
+            const services = await productCollection.find({}).toArray();
+            res.send(services);
+        });
+
         console.log('database connected successfully');
 
     } finally {

@@ -42,7 +42,7 @@ async function run() {
         });
 
         //get api- product details
-        app.get('/products/:_id', async (req, res) => {
+        app.get('/products/:id', async (req, res) => {
             const productDetail = await productCollection.findOne({ _id: ObjectId(req.params.id) });
             res.send(productDetail);
         })

@@ -26,11 +26,26 @@ async function run() {
 
 
 
+
+
         //get products API
         app.get("/products", async (req, res) => {
-            const services = await productCollection.find({}).toArray();
-            res.send(services);
+            const products = await productCollection.find({}).toArray();
+            res.send(products);
         });
+
+        //Post API- add product
+
+        app.post('/products', async (req, res) => {
+            const product = await productCollection.insertOne(req.body);
+            res.json(product);
+        });
+
+        //get api- product details
+        app.get('/products/:id', async (req, res) => {
+            const productDetail = await productCollection.insertOne(req.body);
+            res.json(productDetail);
+        })
 
         console.log('database connected successfully');
 

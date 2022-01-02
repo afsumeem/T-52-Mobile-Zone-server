@@ -20,19 +20,15 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         await client.connect();
+
+        //set database and collections
         const database = client.db("mobileZone-database");
         const productCollection = database.collection("products");
+        const orderCollection = database.collection("orders");
 
 
 
 
-
-
-        //get products API
-        app.get("/products", async (req, res) => {
-            const products = await productCollection.find({}).toArray();
-            res.send(products);
-        });
 
         //Post API- add product
 
@@ -41,11 +37,48 @@ async function run() {
             res.json(product);
         });
 
+        //get products API
+        app.get("/products", async (req, res) => {
+            const products = await productCollection.find({}).toArray();
+            res.send(products);
+        });
+
         //get api- product details
         app.get('/products/:id', async (req, res) => {
             const productDetail = await productCollection.findOne({ _id: ObjectId(req.params.id) });
             res.send(productDetail);
-        })
+        });
+
+
+        //POST Order (add to cart)
+
+        app.post('/orders', async (req, res) => {
+            const order = await orderCollection.insertOne(req.body);
+            res.json(order)
+        });
+
+        //GET ordered products
+
+        app.get('/orders', async (req, res) => {
+            const order = orderCollection.find({});
+            const result = await order.toArray();
+            res.json(result)
+        });
+
+        //DELETE ordered product
+
+        app.delete("/orders/:id", async (req, res) => {
+            const deleteOrder = await orderCollection.deleteOne({ _id: ObjectId(req.params.id) });
+            res.json(deleteOrder);
+        });
+
+
+
+
+
+
+
+
 
         console.log('database connected successfully');
 

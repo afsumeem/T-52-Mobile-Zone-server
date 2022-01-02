@@ -85,55 +85,28 @@ async function run() {
             res.json(deleteOrder);
         });
 
+        //save users
+        app.post('/users', async (req, res) => {
+            const users = await saveUsersCollection.insertOne(req.body);
+            console.log(users);
+            res.json(users);
+        });
+
+        //update users api
+        app.put('/users', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const options = { upsert: true };
+            const updateDoc = { $set: user };
+            const result = await saveUsersCollection.updateOne(filter, updateDoc, options);
+            res.json(result);
+        })
 
 
 
 
-        //POST API- users
-        // app.post('/colorCastleUsers', async (req, res) => {
-        //     const user = await usersCollection.insertOne(req.body);
-        //     console.log(user);
-        //     res.json(user);
-        // });
 
 
-        // UPDATE API - users
-
-        // app.put('/colorCastleUsers', async (req, res) => {
-        //     const user = req.body;
-        //     const filter = { email: user.email };
-        //     const options = { upsert: true };
-        //     const updateUser = { $set: user }
-        //     const result = await usersCollection.updateOne(filter, updateUser, options);
-        //     res.json(result);
-
-        // });
-
-        // UPDATE API- update users role 
-
-        // app.put('/colorCastleUsers/admin', async (req, res) => {
-        //     const user = req.body;
-        //     const filter = { email: user.email };
-        //     const updateDoc = { $set: { role: 'admin' } };
-        //     const result = await usersCollection.updateOne(filter, updateDoc);
-        //     res.json(result);
-
-        // });
-
-        //GET API- users
-
-        // app.get('/colorCastleUsers/:email', async (req, res) => {
-        //     const email = req.params.email;
-        //     const query = { email: email };
-        //     const user = await usersCollection.findOne(query);
-
-        //     let isAdmin = false;
-        //     if (user?.role === 'admin') {
-        //         isAdmin = true;
-        //     };
-        //     console.log(isAdmin);
-        //     res.json({ admin: isAdmin });
-        // });
 
 
 

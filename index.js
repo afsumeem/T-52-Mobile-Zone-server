@@ -26,7 +26,9 @@ async function run() {
         const productCollection = database.collection("products");
         const saveProductCollection = database.collection("saveProduct");
         const orderCollection = database.collection("orders");
+        const blogsCollection = database.collection("blog");
         const saveUsersCollection = database.collection("users");
+
 
 
 
@@ -87,6 +89,20 @@ async function run() {
         app.get('/orders', async (req, res) => {
             const order = orderCollection.find({});
             const result = await order.toArray();
+            res.json(result)
+        });
+
+
+        //POST API -Add new blog
+        app.post('/blog', async (req, res) => {
+            const blogs = await blogsCollection.insertOne(req.body);
+            console.log(blogs);
+        });
+
+
+        //GET api - blogs
+        app.get('/blog', async (req, res) => {
+            const result = await blogsCollection.find({}).toArray();
             res.json(result)
         });
 

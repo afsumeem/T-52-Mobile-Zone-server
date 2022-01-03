@@ -25,6 +25,7 @@ async function run() {
         const database = client.db("mobileZone-database");
         const productCollection = database.collection("products");
         const saveProductCollection = database.collection("saveProduct");
+        const orderCollection = database.collection("orders");
         const saveUsersCollection = database.collection("users");
 
 
@@ -73,14 +74,13 @@ async function run() {
 
 
 
-
-
         //POST Order 
 
         app.post('/orders', async (req, res) => {
             const order = await orderCollection.insertOne(req.body);
             res.json(order)
         });
+
 
         //GET ordered products
 

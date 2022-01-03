@@ -63,7 +63,19 @@ async function run() {
             res.json(result);
         })
 
-        //POST Order (add to cart)
+        //DELETE product from add to cart
+
+        app.delete("/saveProduct/:id", async (req, res) => {
+            const deleteOrder = await saveProductCollection.deleteOne({ _id: (req.params.id) });
+            console.log(deleteOrder);
+            res.json(deleteOrder);
+        });
+
+
+
+
+
+        //POST Order 
 
         app.post('/orders', async (req, res) => {
             const order = await orderCollection.insertOne(req.body);
@@ -78,12 +90,7 @@ async function run() {
             res.json(result)
         });
 
-        //DELETE ordered product
 
-        app.delete("/orders/:id", async (req, res) => {
-            const deleteOrder = await orderCollection.deleteOne({ _id: ObjectId(req.params.id) });
-            res.json(deleteOrder);
-        });
 
         //save users
         app.post('/users', async (req, res) => {
@@ -100,7 +107,9 @@ async function run() {
             const updateDoc = { $set: user };
             const result = await saveUsersCollection.updateOne(filter, updateDoc, options);
             res.json(result);
-        })
+        });
+
+
 
 
 

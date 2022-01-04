@@ -50,6 +50,15 @@ async function run() {
             res.send(productDetail);
         });
 
+        //DELETE product from add to cart
+
+        app.delete("/products/:id", async (req, res) => {
+            const deleteOrder = await productCollection.deleteOne({ _id: ObjectId(req.params.id) });
+            console.log(deleteOrder);
+            res.json(deleteOrder);
+        });
+
+
 
 
         //========get cart product============//

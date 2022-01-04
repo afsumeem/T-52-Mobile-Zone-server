@@ -152,6 +152,12 @@ async function run() {
             res.json({ admin: isAdmin });
         });
 
+        //GET api - blogs
+        app.get('/users', async (req, res) => {
+            const result = await saveUsersCollection.find({}).toArray();
+            res.json(result)
+        });
+
 
 
         console.log('database connected successfully');

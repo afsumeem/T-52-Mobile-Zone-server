@@ -158,6 +158,12 @@ async function run() {
             res.json(result)
         });
 
+        //DELETE api -user
+        app.delete("/users/:id", async (req, res) => {
+            const deleteUser = await saveUsersCollection.deleteOne({ _id: ObjectId(req.params.id) });
+            res.json(deleteUser);
+        });
+
 
 
         console.log('database connected successfully');

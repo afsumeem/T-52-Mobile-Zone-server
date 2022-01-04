@@ -31,7 +31,7 @@ async function run() {
         const cartProductCollection = database.collection("cartProduct");
 
 
-        //Post API- add product
+        //==================Post API- add product=======================//
 
         app.post('/products', async (req, res) => {
             const product = await productCollection.insertOne(req.body);
@@ -52,14 +52,7 @@ async function run() {
 
 
 
-
-        // //add to cart
-        // app.post('/saveProduct', async (req, res) => {
-        //     const saveCart = req.body;
-        //     const result = await saveProductCollection.insertOne(saveCart);
-        //     res.json(result);
-
-        // });
+        //========get cart product============//
 
         app.get('/cartProduct', async (req, res) => {
             const cursor = cartProductCollection.find({})
@@ -85,7 +78,7 @@ async function run() {
 
 
 
-        //POST Order 
+        //==============POST Order==============// 
 
         app.post('/orders', async (req, res) => {
             const order = await orderCollection.insertOne(req.body);
@@ -102,7 +95,7 @@ async function run() {
         });
 
 
-        //POST API -Add new blog
+        //===============POST API -Add new blog================//
         app.post('/blog', async (req, res) => {
             const blogs = await blogsCollection.insertOne(req.body);
             console.log(blogs);
@@ -116,7 +109,7 @@ async function run() {
         });
 
 
-        //save users
+        //=======================save users=====================//
         app.post('/users', async (req, res) => {
             const users = await saveUsersCollection.insertOne(req.body);
             console.log(users);
@@ -133,7 +126,16 @@ async function run() {
             res.json(result);
         });
 
+        //UPDATE API- update users role 
 
+        app.put('/users/admin', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const updateDoc = { $set: { role: 'admin' } };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.json(result);
+
+        });
 
 
 

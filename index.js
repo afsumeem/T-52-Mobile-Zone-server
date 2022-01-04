@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.7s5ai.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://t-52-mobile-zone:A9B4Ep8UaPhEhNoZ@cluster0.7s5ai.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -28,8 +28,7 @@ async function run() {
         const orderCollection = database.collection("orders");
         const blogsCollection = database.collection("blog");
         const saveUsersCollection = database.collection("users");
-
-
+        const cartProductCollection = database.collection("cartProduct");
 
 
         //Post API- add product
@@ -106,7 +105,12 @@ async function run() {
             res.json(result)
         });
 
-
+        //save cart product
+        app.post('/cartProduct', async (req, res) => {
+            const cartProduct = req.body;
+            const result = await cartProductCollection.insertOne(cartProduct);
+            res.json(result);
+        });
 
         //save users
         app.post('/users', async (req, res) => {

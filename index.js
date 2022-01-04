@@ -152,7 +152,7 @@ async function run() {
             res.json({ admin: isAdmin });
         });
 
-        //GET api - blogs
+        //GET api -user
         app.get('/users', async (req, res) => {
             const result = await saveUsersCollection.find({}).toArray();
             res.json(result)

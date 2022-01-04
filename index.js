@@ -51,24 +51,34 @@ async function run() {
         });
 
 
-        //add to cart
-        app.post('/saveProduct', async (req, res) => {
-            const saveCart = req.body;
-            const result = await saveProductCollection.insertOne(saveCart);
-            res.json(result);
 
-        });
 
-        app.get('/saveProduct', async (req, res) => {
-            const cursor = saveProductCollection.find({})
+        // //add to cart
+        // app.post('/saveProduct', async (req, res) => {
+        //     const saveCart = req.body;
+        //     const result = await saveProductCollection.insertOne(saveCart);
+        //     res.json(result);
+
+        // });
+
+        app.get('/cartProduct', async (req, res) => {
+            const cursor = cartProductCollection.find({})
             const result = await cursor.toArray();
             res.json(result);
         })
 
+
+        //save cart product
+        app.post('/cartProduct', async (req, res) => {
+            const cartProduct = req.body;
+            const result = await cartProductCollection.insertOne(cartProduct);
+            res.json(result);
+        });
+
         //DELETE product from add to cart
 
-        app.delete("/saveProduct/:id", async (req, res) => {
-            const deleteOrder = await saveProductCollection.deleteOne({ _id: (req.params.id) });
+        app.delete("/cartProduct/:id", async (req, res) => {
+            const deleteOrder = await cartProductCollection.deleteOne({ _id: (req.params.id) });
             console.log(deleteOrder);
             res.json(deleteOrder);
         });
@@ -105,12 +115,6 @@ async function run() {
             res.json(result)
         });
 
-        //save cart product
-        app.post('/cartProduct', async (req, res) => {
-            const cartProduct = req.body;
-            const result = await cartProductCollection.insertOne(cartProduct);
-            res.json(result);
-        });
 
         //save users
         app.post('/users', async (req, res) => {

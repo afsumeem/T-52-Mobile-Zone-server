@@ -53,7 +53,7 @@ async function run() {
         //DELETE product from add to cart
 
         app.delete("/products/:id", async (req, res) => {
-            const deleteOrder = await productCollection.deleteOne({ _id: (req.params.id) });
+            const deleteOrder = await productCollection.deleteOne({ _id: ObjectId(req.params.id) });
             console.log(deleteOrder);
             res.json(deleteOrder);
         });

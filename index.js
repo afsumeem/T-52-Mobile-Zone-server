@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: "https://mobile-zone-by-team-52.netlify.app",
+    credentials: true,
   })
 );
 

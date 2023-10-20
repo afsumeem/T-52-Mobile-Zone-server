@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //middleaware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 // Enable All CORS Requests

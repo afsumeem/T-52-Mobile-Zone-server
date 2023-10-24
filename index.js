@@ -8,16 +8,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //middleaware
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 // Enable All CORS Requests
-app.use(
-  cors({
-    origin: "https://mobile-zone-by-team-52.netlify.app",
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://mobile-zone-by-team-52.netlify.app",
+//     credentials: true,
+//   })
+// );
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.7s5ai.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
@@ -66,7 +66,7 @@ async function run() {
       const deleteOrder = await productCollection.deleteOne({
         _id: ObjectId(req.params.id),
       });
-      console.log(deleteOrder);
+      // console.log(deleteOrder);
       res.json(deleteOrder);
     });
 
@@ -91,7 +91,7 @@ async function run() {
       const deleteOrder = await cartProductCollection.deleteOne({
         _id: ObjectId(req.params.id),
       });
-      console.log(deleteOrder);
+      // console.log(deleteOrder);
       res.json(deleteOrder);
     });
 
@@ -113,7 +113,7 @@ async function run() {
     //===============POST API -Add new blog================//
     app.post("/blog", async (req, res) => {
       const blogs = await blogsCollection.insertOne(req.body);
-      console.log(blogs);
+      // console.log(blogs);
     });
 
     //GET api - blogs
@@ -125,7 +125,7 @@ async function run() {
     //=======================save users=====================//
     app.post("/users", async (req, res) => {
       const users = await saveUsersCollection.insertOne(req.body);
-      console.log(users);
+      // console.log(users);
       res.json(users);
     });
 
@@ -164,7 +164,7 @@ async function run() {
       if (user?.role === "admin") {
         isAdmin = true;
       }
-      console.log(isAdmin);
+      // console.log(isAdmin);
       res.json({ admin: isAdmin });
     });
 
